@@ -11,5 +11,22 @@
 
 {% endif %}
 
+{% if request.user.is_authenticated %}
+    <a href="{% url 'products:create' %}">
+        <button>새로운 글작성</button>
+    </a>
+
+{% else %}
+
+    <a href="{% url 'accounts:login' %}">로그인하고 글 작성하기</a>
+
+{% endif %}
+{% for product in products %}
+<a href="{% url 'products:product_detail' product.pk %}">
+    <p>[{{ product.pk }}]{{ product.title }}  작성자:{{ product.seller.username }}</p>
+</a>
+<p>찜수 : {{ product.mark_user.count }}</p>
+{% endfor %}
+
 
 {% endblock content %}
