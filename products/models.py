@@ -9,6 +9,5 @@ class Product(models.Model):
     image = models.ImageField(upload_to='images/', blank=True)
 
     seller = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='products')
-
     def __str__(self):
         return self.title

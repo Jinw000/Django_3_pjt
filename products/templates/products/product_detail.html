@@ -14,6 +14,26 @@
 <p>작성일시:{{ product.created_at }}</p>
 <p>수정일시:{{ product.updated_at }}</p>
 
-<a href="{% url 'products:products' %}">목록 보기</a>
+{% if user == product.seller %}
+<form action="{% url 'products:update' product.pk %}" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="수정">
+    
+</form>
+<br>
+<form action="{% url 'products:delete' product.pk %}" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="삭제">
+    
+</form>
+{% endif %}
+
+<br>
+
+<form action="{% url 'products:products' %}" method="">
+    {% csrf_token %}
+    <input type="submit" value="목록">
+    
+</form>
 
 {% endblock content %}
