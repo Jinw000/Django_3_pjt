@@ -20,8 +20,15 @@ def signup(request):
 
 @require_http_methods(['GET', 'POST'])
 def login(request):
-    if request.metod == 'POST':
+    if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():
             auth_login(request, form.get_user())
-            return redirect()
+            return redirect('products/products.html')
+    else:
+        form = AuthenticationForm()
+    context = {'form':form}
+    return render(request, 'accounts/login.html', context)
+
+def home(request):
+    return render(request, 'accounts/home.html')
