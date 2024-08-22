@@ -14,7 +14,6 @@ class Product(models.Model):
     def __str__(self):
         return self.title
     
-    @property
     def update_counter(self):
         self.hit += 1
         self.save() 

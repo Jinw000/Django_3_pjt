@@ -26,6 +26,8 @@
     <p>[{{ product.pk }}]{{ product.title }}  작성자:{{ product.seller.username }}</p>
 </a>
 <p>찜수 : {{ product.mark_user.count }}</p>
+<p>조회수: {{ product.hit }}</p>
+
 {% endfor %}
 
 

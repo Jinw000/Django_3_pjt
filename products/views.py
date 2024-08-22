@@ -25,6 +25,7 @@ def mark(request, pk):
 
 def product_detail(request, pk):
     product = get_object_or_404(Product, pk=pk)
+    product.update_counter()
     marks = product.mark_user.count()
     hits = product.hit
     context = {
