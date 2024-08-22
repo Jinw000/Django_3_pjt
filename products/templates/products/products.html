@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>매인화면</h1>
+{% if request.user.is_authenticated %}
+            <h2>Hello, {{ request.user.username }}</h2>
+<form action="{% url 'accounts:logout' %}" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="로그아웃">
+</form>
+
+{% endif %}
+
+
+{% endblock content %}
