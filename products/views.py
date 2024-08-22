@@ -26,9 +26,11 @@ def mark(request, pk):
 def product_detail(request, pk):
     product = get_object_or_404(Product, pk=pk)
     marks = product.mark_user.count()
+    hits = product.hit
     context = {
         'product':product,
         'marks':marks,
+        'hits':hits,
     }
     return render(request, 'products/product_detail.html', context)
 
