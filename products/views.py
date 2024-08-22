@@ -3,7 +3,6 @@ from .models import Product
 from .forms import ProductForm
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST, require_http_methods
-# Create your views here.
 
 def products(request):
     products = Product.objects.all().order_by('-pk')
@@ -12,11 +11,24 @@ def products(request):
     }
     return render(request, 'products/products.html', context)
 
+@require_POST
+def mark(request, pk):
+    if request.user.is_authenticated:
+        product = get_object_or_404(Product, pk=pk)
+        if product.mark_user.filter(pk=request.user.pk).exists():
+            product.mark_user.remove(request.user)
+        else:
+            product.mark_user.add(request.user)
+        return redirect('products:product_detail', product.pk)
+    return redirect('accounts:login')
+
 
 def product_detail(request, pk):
     product = get_object_or_404(Product, pk=pk)
+    marks = product.mark_user.count()
     context = {
         'product':product,
+        'marks':marks,
     }
     return render(request, 'products/product_detail.html', context)
 

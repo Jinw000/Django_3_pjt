@@ -6,6 +6,15 @@
 <p>제목: {{ product.title }}</p>
 <p>판매자: {{ product.seller.username }}</p>
 
+<form action="{% url 'products:mark' product.pk %}" method="POST">
+    {% csrf_token %}
+    {% if request.user in product.mark_user.all %}
+        <input type="submit" value="찜취소">
+    {% else %}
+        <input type="submit" value="찜">
+    {% endif %}
+</form>
+<p>찜수: {{ marks }}</p>
 {% if product.image %}
     <img src="{{ product.image.url }}">
 {% endif %}

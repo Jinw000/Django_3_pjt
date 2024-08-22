@@ -25,7 +25,7 @@
 <a href="{% url 'products:product_detail' product.pk %}">
     <p>[{{ product.pk }}]{{ product.title }}  작성자:{{ product.seller.username }}</p>
 </a>
-    
+<p>찜수 : {{ product.mark_user.count }}</p>
 {% endfor %}
 
 
