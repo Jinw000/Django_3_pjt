@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>프로필</h1>
+{% if request.user.is_authenticated %}
+    <h2>{{ member.username }}님</h2>
+    <p>User ID: {{ member.pk }}</p>
+    <h2>가입일 : {{ request.user.date_joined|date:'m월 d일' }}</h2>
+
+<form action="{% url "accounts:delete_account" %}" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="회원탈퇴"></input>
+</form>
+
+<form action="{% url 'users:follow' user_id=request.user.pk %}" method="POST">
+    {% csrf_token %}
+    {% if user in member.followers.all %}
+        <button type="submit">언팔로우</button>
+    {% else %}
+        <button type="submit">팔로우</button>
+    {% endif %}
+</form>
+{% endif %}
+
+{% endblock content %}

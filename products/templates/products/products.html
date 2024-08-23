@@ -9,6 +9,10 @@
     <input type="submit" value="로그아웃">
 </form>
 
+<form action="{% url 'users:profile' username=member.username %}" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Users">
+</form>
 {% endif %}
 
 

@@ -46,7 +46,7 @@ def logout(request):
     return redirect("home")
 
 @require_POST
-def signout(request):
+def delete_account(request):
     if request.user.is_authenticated:
         request.user.delete()
         auth_logout(request)
