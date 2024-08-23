@@ -8,6 +8,9 @@
     {% csrf_token %}
     <input type="submit" value="로그아웃">
 </form>
+<form action="{% url "accounts:update" %}" method="">
+    <input type="submit" value="회원정보수정">
+</form>
 
 {% endif %}
 

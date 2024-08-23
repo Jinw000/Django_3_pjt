@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
-from django.views.decorators.http import require_POST
+from django.views.decorators.http import require_POST, require_http_methods
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
 from accounts.models import User
 from products.models import Product
+from django.contrib.auth.decorators import login_required
+from accounts.forms import ImageForm
 # Create your views here.
 
 

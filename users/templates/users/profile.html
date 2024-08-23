@@ -3,11 +3,11 @@
 {% block content %}
 <h1>프로필</h1>
 {% if request.user.is_authenticated %}
+{% if member.image %}
+    <img src="{{ image.url }}">
+{% endif %}	
     <h2>{{ member.username }}님</h2>
     <p>User ID: {{ member.pk }}</p>
-    {% if member.image %}
-		<img src="{{ image.url }}">
-    {% endif %}	
     <h2>가입일 : {{ request.user.date_joined|date:'m월 d일' }}</h2>
 
     팔로워 : {{ member.followers.count }}명
@@ -23,7 +23,12 @@
         {% endif %}
     </form>
     {% endif %}
-    
+
+    <form action="{% url "users:image_update" request.user.username %}" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="프로필이미지변경"></input>
+    </form>
+
     <form action="{% url "accounts:delete_account" %}" method="POST">
         {% csrf_token %}
         <input type="submit" value="회원탈퇴"></input>
