@@ -21,6 +21,18 @@
     <a href="{% url 'accounts:login' %}">로그인하고 글 작성하기</a>
 
 {% endif %}
+
+<form method="GET" action="{% url 'products:products' %}">
+    <div>
+    <select name="sort" id="sort">
+        <option value="deault" id="default">------</option>
+        <option value="recently" id="recently">최신순</option>
+        <option value="mark" id="mark">인기순</option>
+    </select>
+    <button type="submit" value="">정렬</button>
+    </div>
+
+
 {% for product in products %}
 <a href="{% url 'products:product_detail' product.pk %}">
     <p>[{{ product.pk }}]{{ product.title }}  작성자:{{ product.seller.username }}</p>

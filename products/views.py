@@ -5,9 +5,18 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST, require_http_methods
 
 def products(request):
-    products = Product.objects.all().order_by('-pk')
+    products = Product.objects.all().order_by('pk')
+    sort = request.GET.get('sort','')
+    if sort == 'mark':
+        products = Product.objects.all().order_by('-mark_user','-created_at')
+    elif sort == 'recently':
+        products = Product.objects.all().order_by('-created_at')
+    else:
+        products = Product.objects.all().order_by('pk')
+
     context = {
         'products' : products,
+        'sort':sort,
     }
     return render(request, 'products/products.html', context)
 
@@ -67,10 +76,10 @@ def update(request, pk):
             if form.is_valid():
                 product = form.save()
                 return redirect('products:product_detail', product.pk)
-        else:
-            form = ProductForm(instance=product)
+            else:
+                form = ProductForm(instance=product)
     context = {
         'form':form,
-        'product':product
+        'product':product,
         }
     return render(request, 'products/update.html', context)
