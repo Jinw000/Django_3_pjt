@@ -15,7 +15,7 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             auth_login(request, user)
-            return redirect('login')
+            return redirect('accounts:login')
     else:
         form = CustomUserCreationForm()
     context = {'form': form}
@@ -37,6 +37,8 @@ def login(request):
 
 
 def home(request):
+    if request.user.is_authenticated:
+        return redirect('products:products')
     return render(request, 'accounts/home.html')
 
 @require_POST
