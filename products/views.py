@@ -72,7 +72,7 @@ def update(request, pk):
     product = get_object_or_404(Product, pk=pk)
     if product.seller == request.user:
         if request.method =='POST':
-            form = ProductForm(request.POST, instance=product)
+            form = ProductForm(request.POST, request.FILES, instance=product)
             if form.is_valid():
                 product = form.save()
                 return redirect('products:product_detail', product.pk)
