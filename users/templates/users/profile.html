@@ -22,4 +22,10 @@
 </form>
 {% endif %}
 
+{% for my_product in my_products %}
+    <a href="{% url 'products:product_detail' my_product.pk %}">
+        <p>{{ my_product.title }}</p>
+    </a>
+{% endfor %}
+
 {% endblock content %}

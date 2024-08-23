@@ -2,25 +2,19 @@
 
 {% block content %}
 <h1>user page</h1>
-{% extends 'base.html' %}
 
-{% block content %}
     <h1>유저 목록</h1>
 
-    {% if users %}
         <ul>
             {% for user in users %}
                 <li>
                     <a href="{% url 'users:profile' username=user.username %}">{{ user.username }}</a>
-                    <p>이메일: {{ user.email }}</p>
-                    <p>가입일: {{ user.date_joined|date:'Y년 m월 d일' }}</p>
+                    <div>
+                        <p></p>
+                    </div>
                 </li>
             {% endfor %}
         </ul>
-    {% else %}
-        <p>등록된 사용자가 없습니다.</p>
-    {% endif %}
-{% endblock content %}
 
 
 {% endblock content %}

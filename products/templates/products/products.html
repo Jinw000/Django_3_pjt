@@ -3,16 +3,12 @@
 {% block content %}
 <h1>메인화면</h1>
 {% if request.user.is_authenticated %}
-            <h2>Hello, {{ request.user.seller }}</h2>
+            <h2>Hello, {{ request.user.username }}</h2>
 <form action="{% url 'accounts:logout' %}" method="POST">
     {% csrf_token %}
     <input type="submit" value="로그아웃">
 </form>
 
-<form action="{% url 'users:profile' username=member.seller %}" method="POST">
-    {% csrf_token %}
-    <input type="submit" value="Users">
-</form>
 {% endif %}
 
 {% if request.user.is_authenticated %}
