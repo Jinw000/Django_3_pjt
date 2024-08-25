@@ -2,10 +2,11 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from django import forms
+from .models import User
 
 
 class CustomUserCreationForm(UserCreationForm):
-    image = forms.ImageField(label="프로필 이미지")
+    image = forms.ImageField(label="프로필 이미지",required=False)
 
     class Meta:
         model = get_user_model()
@@ -13,14 +14,11 @@ class CustomUserCreationForm(UserCreationForm):
 
 
 class CustomUserChangeForm(UserChangeForm):
+    image = forms.ImageField(label="프로필 이미지",required=False)
+
     class Meta:
-        model = get_user_model()
-        fields = (
-            "username",
-            "email",
-            "first_name",
-            "last_name",
-        )
+        model = User
+        fields = ('username', 'image',)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
