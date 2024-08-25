@@ -4,21 +4,23 @@ from .forms import ProductForm
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST, require_http_methods
 
+
 def products(request):
     products = Product.objects.all().order_by('pk')
-    sort = request.GET.get('sort','')
+    sort = request.GET.get('sort', '')
     if sort == 'mark':
-        products = Product.objects.all().order_by('-mark_user','-created_at')
+        products = Product.objects.all().order_by('-mark_user', '-created_at')
     elif sort == 'recently':
         products = Product.objects.all().order_by('-created_at')
     else:
         products = Product.objects.all().order_by('pk')
 
     context = {
-        'products' : products,
-        'sort':sort,
+        'products': products,
+        'sort': sort,
     }
     return render(request, 'products/products.html', context)
+
 
 @require_POST
 def mark(request, pk):
@@ -38,11 +40,12 @@ def product_detail(request, pk):
     marks = product.mark_user.count()
     hits = product.hit
     context = {
-        'product':product,
-        'marks':marks,
-        'hits':hits,
+        'product': product,
+        'marks': marks,
+        'hits': hits,
     }
     return render(request, 'products/product_detail.html', context)
+
 
 @login_required
 def create(request):
@@ -55,23 +58,24 @@ def create(request):
             return redirect('products:product_detail', product.pk)
     else:
         form = ProductForm()
-    context = {'form':form}
+    context = {'form': form}
     return render(request, 'products/create.html', context)
+
 
 @require_POST
 def delete(request, pk):
     if request.user.is_authenticated:
-        article =get_object_or_404(Product, pk=pk)
+        article = get_object_or_404(Product, pk=pk)
         article.delete()
     return redirect('products:products')
 
 
 @login_required
-@require_http_methods(['GET','POST'])
+@require_http_methods(['GET', 'POST'])
 def update(request, pk):
     product = get_object_or_404(Product, pk=pk)
     if product.seller == request.user:
-        if request.method =='POST':
+        if request.method == 'POST':
             form = ProductForm(request.POST, request.FILES, instance=product)
             if form.is_valid():
                 product = form.save()
@@ -79,7 +83,7 @@ def update(request, pk):
             else:
                 form = ProductForm(instance=product)
     context = {
-        'form':form,
-        'product':product,
-        }
+        'form': form,
+        'product': product,
+    }
     return render(request, 'products/update.html', context)

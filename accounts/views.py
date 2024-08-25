@@ -9,10 +9,12 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
+
+
 @require_http_methods(['GET', 'POST'])
 def signup(request):
     if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save()
             auth_login(request, user)
@@ -26,7 +28,7 @@ def signup(request):
 @require_http_methods(["GET", "POST"])
 def update(request):
     if request.method == "POST":
-        form = CustomUserChangeForm(request.POST, instance=request.user)
+        form = CustomUserChangeForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
             form.save()
             return redirect("products:products")
@@ -70,11 +72,13 @@ def home(request):
         return redirect('products:products')
     return render(request, 'accounts/home.html')
 
+
 @require_POST
 def logout(request):
     if request.user.is_authenticated:
         auth_logout(request)
     return redirect("home")
+
 
 @require_POST
 def delete_account(request):
@@ -82,4 +86,3 @@ def delete_account(request):
         request.user.delete()
         auth_logout(request)
     return redirect("home")
-

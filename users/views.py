@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 from accounts.models import User
 from products.models import Product
 from django.contrib.auth.decorators import login_required
-from accounts.forms import ImageForm
+
 # Create your views here.
 
 
