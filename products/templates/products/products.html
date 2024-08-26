@@ -1,4 +1,9 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/products.css' %}">
+{% endblock css %}
 
 {% block content %}
 <h1>메인화면</h1>
@@ -10,6 +15,11 @@
 </form>
 <form action="{% url "accounts:update" %}" method="">
     <input type="submit" value="회원정보수정">
+</form>
+
+</form>
+<form action="{% url "users:users" %}" method="">
+    <input type="submit" value="유저목록">
 </form>
 
 {% endif %}
@@ -39,6 +49,10 @@
 {% for product in products %}
 <a href="{% url 'products:product_detail' product.pk %}">
     <p>[{{ product.pk }}]{{ product.title }}  작성자:{{ product.seller.username }}</p>
+    <br>
+    {% if product.image %}
+    <img src="{{ product.image.url }}">
+    {% endif %}
 </a>
 <p>찜수 : {{ product.mark_user.count }}</p>
 <p>조회수: {{ product.hit }}</p>

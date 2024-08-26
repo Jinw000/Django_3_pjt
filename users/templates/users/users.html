@@ -9,10 +9,13 @@
             {% for user in users %}
                 <li>
                     <a href="{% url 'users:profile' username=user.username %}">{{ user.username }}</a>
+                    <br>팔로워 {{ user.followers.count }}
+                    팔로잉 {{ user.following.count }}
                     <div>
                         <p></p>
                     </div>
                 </li>
+
             {% endfor %}
         </ul>
 

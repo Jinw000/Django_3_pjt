@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
+{% load static %}
 
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock css %}
 {% block content %}
 <h1>프로필</h1>
 {% if request.user.is_authenticated %}
@@ -9,11 +13,10 @@
 {% endif %}	
 
     <h2>{{ member.username }}님</h2>
-    <p>User ID: {{ member.pk }}</p>
-    <h2>가입일 : {{ request.user.date_joined|date:'m월 d일' }}</h2>
+    <h5>가입일 : {{ request.user.date_joined|date:'m월 d일' }}</h5>
 
-    팔로워 : {{ member.followers.count }}명
-    팔로잉 : {{ member.following.count }}명
+    팔로워  {{ member.followers.count }}
+    팔로잉  {{ member.following.count }}
 
     
     <form action="{% url 'users:follow' member.pk %}" method="POST">
