@@ -29,7 +29,7 @@
 {% endif %}
 
 {% if request.user.is_authenticated %}
-    <a href="{% url 'products:create' %}">
+    <a class="new-content" href="{% url 'products:create' %}">
         <button>새로운 글작성</button>
     </a>
 
@@ -46,7 +46,7 @@
         <option value="recently" id="recently">최신순</option>
         <option value="mark" id="mark">인기순</option>
     </select>
-    <button type="submit" value="">정렬</button>
+    <button class="sort" type="submit" value="">정렬</button>
     </div>
 
 
