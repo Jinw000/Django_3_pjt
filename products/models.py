@@ -9,7 +9,7 @@ class Product(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    image = models.ImageField(upload_to='images/prodcuts', blank=True)
+    image = models.ImageField(default='product.png',upload_to='images/prodcuts', blank=True)
     image2 = models.ImageField(upload_to='images/prodcuts', blank=True)
     image3 = models.ImageField(upload_to='images/prodcuts', blank=True)
     image4 = models.ImageField(upload_to='images/prodcuts', blank=True)
