@@ -9,19 +9,17 @@
             <div class="d-flex flex-column justify-content-end mt-auto">
                 <form action="{% url 'accounts:login' %}" method="POST">
                     {% csrf_token %}
-                    <input type="submit" value="로그인">
+                    <input type="submit" class="w-100 btn btn-lg btn-primary mb-2" style="background-color: white; color: black; border: 1px solid #ccc;" value="로그인">
                 </form>
-                <button type="button" class="w-100 btn btn-lg btn-primary mb-2" style="background-color: white; color: black; border: 1px solid #ccc;">로그인</button>
-                <button type="button" class="w-100 btn btn-lg btn-primary">회원가입</button>
+                <form action="{% url 'accounts:signup' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="submit" class="w-100 btn btn-lg btn-primary" value="회원가입">
+                </form>
             </div>
         </div>
         </div>
     </div>
 </div>
 
-<form action="{% url 'accounts:signup' %}" method="POST">
-    {% csrf_token %}
-    <input type="submit" value="회원가입">
-</form>
 
 {% endblock content %}
