@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock css %}
+{% block content %}
+<h1>프로필</h1>
+{% if request.user.is_authenticated %}
+
+{% if member.image %}
+    <img src="{{ member.image.url }}">
+{% endif %}	
+
+    <h2>{{ member.username }}님</h2>
+    <h5>가입일 : {{ request.user.date_joined|date:'m월 d일' }}</h5>
+
+    팔로워  {{ member.followers.count }}
+    팔로잉  {{ member.following.count }}
+
+    
+    <form action="{% url 'users:follow' member.pk %}" method="POST">
+        {% csrf_token %}
+        {% if user in member.followers.all %}
+        <button type="submit">언팔로우</button>
+        {% else %}
+        <button type="submit">팔로우</button>
+        {% endif %}
+    </form>
+    {% endif %}
+
+
+
+    <form action="{% url "accounts:delete_account" %}" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="회원탈퇴"></input>
+    </form>
+<hr>
+<p>내가 올린 물건</p>
+{% for my_product in my_products %}
+    <a href="{% url 'products:product_detail' my_product.pk %}">
+        <p>{{ my_product.title }}</p>
+    </a>
+{% endfor %}
+<hr>
+<p>내가 찜한 물건</p>
+{% for product in mark_products %}
+    <a href="{% url 'products:product_detail' product.pk %}">
+        <p>{{ product.title }}</p>
+    </a>
+{% endfor %}
+
+{% endblock content %}

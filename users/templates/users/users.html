@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>user page</h1>
+
+    <h1>유저 목록</h1>
+
+        <ul>
+            {% for user in users %}
+                <li>
+                    <a href="{% url 'users:profile' username=user.username %}">{{ user.username }}</a>
+                    <br>팔로워 {{ user.followers.count }}
+                    팔로잉 {{ user.following.count }}
+                    <div>
+                        <p></p>
+                    </div>
+                </li>
+
+            {% endfor %}
+        </ul>
+
+
+{% endblock content %}
