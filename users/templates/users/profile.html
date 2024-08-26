@@ -14,11 +14,14 @@
 
     <h2>{{ member.username }}님</h2>
     <h5>가입일 : {{ request.user.date_joined|date:'m월 d일' }}</h5>
-
+    
     팔로워  {{ member.followers.count }}
     팔로잉  {{ member.following.count }}
-
     
+    <form action="{% url "accounts:update" %}" method="">
+        <input type="submit" value="회원정보수정">
+    </form>
+    {%if member.username != request.user.username %}
     <form action="{% url 'users:follow' member.pk %}" method="POST">
         {% csrf_token %}
         {% if user in member.followers.all %}
@@ -27,6 +30,7 @@
         <button type="submit">팔로우</button>
         {% endif %}
     </form>
+    {% endif %}
     {% endif %}
 
 

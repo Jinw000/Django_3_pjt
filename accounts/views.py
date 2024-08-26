@@ -29,9 +29,10 @@ def signup(request):
 def update(request):
     if request.method == "POST":
         form = CustomUserChangeForm(request.POST, request.FILES, instance=request.user)
+        username = request.user.username
         if form.is_valid():
             form.save()
-            return redirect("products:products")
+            return redirect("users:profile", username)
     else:
         form = CustomUserChangeForm(instance=request.user)
     context = {"form": form}
@@ -46,7 +47,7 @@ def change_password(request):
         if form.is_valid():
             form.save()
             update_session_auth_hash(request, form.user)
-            return redirect("index")
+            return redirect("home")
     else:
         form = PasswordChangeForm(request.user)
     context = {"form": form}

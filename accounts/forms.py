@@ -1,4 +1,4 @@
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from django import forms
@@ -6,7 +6,7 @@ from .models import User
 
 
 class CustomUserCreationForm(UserCreationForm):
-    image = forms.ImageField(label="프로필 이미지",required=False)
+    image = forms.ImageField(label="Profile Image",required=False)
 
     class Meta:
         model = get_user_model()
@@ -14,8 +14,9 @@ class CustomUserCreationForm(UserCreationForm):
 
 
 class CustomUserChangeForm(UserChangeForm):
-    image = forms.ImageField(label="프로필 이미지",required=False)
-
+    username = forms.CharField()
+    image = forms.ImageField(label="Profile Image",required=False)
+    
     class Meta:
         model = User
         fields = ('username', 'image',)
@@ -27,3 +28,6 @@ class CustomUserChangeForm(UserChangeForm):
                 "You can change the password " '<a href="{}">here</a>.'
             ).format(f"{reverse('accounts:change_password')}")
             self.fields["password"].help_text = password_help_text
+
+class CustopPasswordChangeForm(PasswordChangeForm):
+    old_password = forms.CharField(label='이전비밀번호')
