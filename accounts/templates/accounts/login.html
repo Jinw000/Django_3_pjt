@@ -1,17 +1,27 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>로그인</h1>
+<div class="text-center">
+    <div class="col flex flex-center center-content">
+        <div class="card mb-4 rounded-3 shadow-sm" style="width: 400px; height: 500px;">
+        <div class="card-body d-flex flex-column flex-grow-1">
+            <h4 class="my-0 fw-normal" style="text-align: left; line-height: 1.5; font-size: 25px;">Spartamarket에 오신것을<br>환영합니다.</h4>
+            <div class="d-flex flex-column">
+                <div class="d-flex justify-content-center align-items-center" style="height: 40vh;">
+                    <form action="" method="POST" style="width: 300px;">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <input type="submit" class="w-100 btn btn-lg btn-primary mb-2" style="background-color: white; color: black; border: 1px solid #ccc;" value="로그인">
+                    </form>
+                    <form action="{% url 'home' %}" method="">
+                        <input type="submit" class="w-100 btn btn-lg btn-primary mb-2" style="background-color: white; color: black; border: 1px solid #ccc;" value="뒤로">
+                    </form>
+                </div>   
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
 
-<form action="" method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">로그인</button>
-</form>
-
-<form action="{% url 'accounts:signup' %}" method="POST">
-    {% csrf_token %}
-    <input type="submit" value="회원가입">
-</form>
 
 {% endblock content %}

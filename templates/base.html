@@ -45,7 +45,7 @@
             </form>
             <form action="{% url 'users:profile' request.user.username %}" method="POST">
                 {% csrf_token %}
-                <input class='nav-link text=white' type="submit" value="  내정보  ">
+                <input class='nav-link text=white' type="submit" value="  {{ request.user.username }}님  ">
             </form>
             <form action="{% url 'accounts:logout' %}" method="POST">
                 {% csrf_token %}
@@ -59,7 +59,7 @@
     {% block content %}
     {% endblock content %}
 
-    <div class="container" style='background-color:yellow;'>
+    <div class="container fixed-bottom">
         <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
           <div class="col-md-4 d-flex align-items-center">
             <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
