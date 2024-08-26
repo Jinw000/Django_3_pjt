@@ -28,6 +28,3 @@ class CustomUserChangeForm(UserChangeForm):
                 "You can change the password " '<a href="{}">here</a>.'
             ).format(f"{reverse('accounts:change_password')}")
             self.fields["password"].help_text = password_help_text
-
-class CustopPasswordChangeForm(PasswordChangeForm):
-    old_password = forms.CharField(label='이전비밀번호')
