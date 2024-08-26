@@ -1,12 +1,15 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 <div class="text-center">
     <div class="col flex flex-center center-content">
-        <div class="card mb-4 rounded-3 shadow-sm" style="width: 500px; height: 500px;">
+        <div class="card mb-4 rounded-3 shadow-sm" style="width: 400px; height: 500px;">
         <div class="card-body d-flex flex-column flex-grow-1">
-            <h4 class="my-0 fw-normal" style="text-align: left; line-height: 1.5; font-size: 30px;">Spartamarket에 오신것을<br>환영합니다.</h4>
+            <h4 class="my-0 fw-normal" style="text-align: left; line-height: 1.5; font-size: 25px;">Spartamarket에 오신것을<br>환영합니다.</h4>
             <div class="d-flex flex-column justify-content-end mt-auto">
+                <img src='{% static 'images/spartamarket.png' %}' alt=''>
+                <br>
                 <form action="{% url 'accounts:login' %}" method="POST">
                     {% csrf_token %}
                     <input type="submit" class="w-100 btn btn-lg btn-primary mb-2" style="background-color: white; color: black; border: 1px solid #ccc;" value="로그인">
