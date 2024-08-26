@@ -1,23 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>user page</h1>
 
-    <h1>유저 목록</h1>
-
-        <ul>
+        <div class="row row-cols-1 row-cols-md-4 g-4 mx-auto w-75 pb-5">
             {% for user in users %}
-                <li>
-                    <a href="{% url 'users:profile' username=user.username %}">{{ user.username }}</a>
-                    <br>팔로워 {{ user.followers.count }}
-                    팔로잉 {{ user.following.count }}
-                    <div>
-                        <p></p>
+            <div class="col">
+                <a href="{% url 'users:profile' username=user.username %}" class="card h-100" style="width: 300px; height: 500px; text-align: center; text-decoration: none;">
+                    {% if user.image %}
+                        <img src="{{ user.image.url }}" style="display: block; margin: 0 auto; width: 150px; height: 150px; margin-top: 30px;">
+                    {% endif %}
+                    <div class="card-body">
+                        <p style="font-weight: 900; font-size: 25px;"> {{ user.username }} </p> 
+                        <p style="font-weight: 300;"> 팔로워 {{ user.followers.count }}<span style="margin-right: 80px;"></span>팔로잉 {{ user.following.count }}</p>
                     </div>
-                </li>
-
+                </a>
+            </div>
             {% endfor %}
-        </ul>
-
+        </div>
 
 {% endblock content %}

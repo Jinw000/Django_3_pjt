@@ -8,8 +8,8 @@
 
 {% block content %}
 <div class="container text-center">
-<h2>제목: {{ product.title }}</h2>
-<h5>판매자: {{ product.seller.username }}</h5>
+<h2 style="text-align: left; margin-left: 200px;">제목: {{ product.title }}</h2>
+<h5 style="text-align: left; margin-left: 210px;">판매자: {{ product.seller.username }}</h5>
 
 <br>
 {% if product.image %}
@@ -32,7 +32,7 @@
 <img src="{{ product.image5.url }}">
 {% endif %}
 
-<p>내용: {{ product.content}}</p>
+<div class="card rounded-3 shadow-sm" style="width: 820px; height: 300px; text-align: left; margin-left: 240px; margin-top: 50px; font-size: 24px; overflow: auto; word-wrap: break-word;">내용: {{ product.content}}</div>
 <div class="btn btn123">
     <form action="{% url 'products:mark' product.pk %}" method="POST">
     {% csrf_token %}
