@@ -25,13 +25,13 @@
                 {% endif %}
                 <div class="card-body">
                     <a href="{% url 'products:product_detail' post.pk %}" style="text-decoration: none;">
-                        <p> 제목 : {{ post.title }}</p>
+                        <h3>{{ post.title }}</h3>
                     </a>
                     <a href="{% url 'users:profile' post.seller.username %}" style="text-decoration: none;">
-                        <p> 작성자 : {{ post.seller.username }}</p>
+                        <p>{{ post.seller.username }}</p>
                     </a>
-                    <p>찜수 : {{ post.mark_user.count }}</p>
-                    <p>조회수: {{ post.hit }}</p>
+                    <p>찜 {{ post.mark_user.count }}</p>
+                    <p>조회수 {{ post.hit }}</p>
                     {% for hashtag in post.hashtags.all %}
                         {{ hashtag }}
                         {% endfor %}

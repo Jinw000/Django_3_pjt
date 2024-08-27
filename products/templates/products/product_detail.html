@@ -8,8 +8,8 @@
 
 {% block content %}
 <div class="container text-center">
-<h2 style="text-align: left; margin-left: 200px;">제목: {{ product.title }}</h2>
-<h5 style="text-align: left; margin-left: 210px;">판매자: {{ product.seller.username }}</h5>
+<h2 style="text-align: left; margin-left: 200px;">{{ product.title }}</h2>
+<h5 style="text-align: left; margin-left: 210px;">{{ product.seller.username }}</h5>
 
 <br>
 {% if product.image %}
@@ -32,7 +32,7 @@
 <img src="{{ product.image5.url }}">
 {% endif %}
 
-<div class="card rounded-3 shadow-sm" style="width: 820px; height: 300px; text-align: left; margin-left: 240px; margin-top: 50px; font-size: 24px; overflow: auto; word-wrap: break-word;">내용: {{ product.content}}</div>
+<div class="card rounded-3 shadow-sm" style="width: 820px; height: 300px; text-align: left; margin-left: 240px; margin-top: 50px; font-size: 24px; overflow: auto; word-wrap: break-word;">{{ product.content}}</div>
 {% for hashtag in hashtags %}
 {{ hashtag }}
 {% endfor %}
@@ -52,7 +52,7 @@
     </form>
 </div>
 <div>
-    <p style="font-size: 24px;">찜수: {{ marks }} 조회수: {{ hits }}</p>
+    <p style="font-size: 24px;">찜 {{ marks }} 조회수 {{ hits }}</p>
 </div>
 <p>작성일시:{{ product.created_at }}</p>
 <p>수정일시:{{ product.updated_at }}</p>

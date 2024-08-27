@@ -43,13 +43,13 @@
             {% endif %}
             <div class="card-body">
                 <a href="{% url 'products:product_detail' product.pk %}" style="text-decoration: none;">
-                    <p> 제목 : {{ product.title }}</p>
+                    <h3>{{ product.title }}</h3>
                 </a>
                 <a href="{% url 'users:profile' product.seller.username %}" style="text-decoration: none;">
-                    <p> 작성자 : {{ product.seller.username }}</p>
+                    <p>{{ product.seller.username }}</p>
                 </a>
-                <p>찜수 : {{ product.mark_user.count }}</p>
-                <p>조회수: {{ product.hit }}</p>
+                <p>찜 {{ product.mark_user.count }}</p>
+                <p>조회수 {{ product.hit }}</p>
                 {% for hashtag in product.hashtags.all %}
                     {{ hashtag }}
                     {% endfor %}
