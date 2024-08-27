@@ -45,7 +45,10 @@ team sparta team 3 project
 ## team 3
 |손진우|김상아|서동인|이세준|
 |:---:|:---:|:---:|:---:|
-|||||
+|[jinw000](https://github.com/Jinw000/Jinw000)||||
+|리더|서기|팀원|팀원|
+
+### [깃허브 링크](https://github.com/Jinw000/Django_3_pjt)
 
 ## 기능
 
@@ -68,3 +71,6 @@ team sparta team 3 project
 ### 해시 태그
 
 ### 검색 기능
+
+
+## ERD
