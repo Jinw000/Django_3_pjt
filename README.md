@@ -82,3 +82,7 @@ team sparta team 3 project
 
 
 ## ERD
+
+
+
+◻ Copyright ©2024 django team 3 all rights reserved.
