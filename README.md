@@ -17,7 +17,11 @@ team sparta team 3 project
 - Github
 
 ## Requirements
-- asgiref==3.8.1
+<details>
+<summary>미리보기</summary>
+<div markdown="1">
+
+!- asgiref==3.8.1
 - asttokens==2.4.1
 - decorator==5.1.1
 - Django==4.2
@@ -41,6 +45,10 @@ team sparta team 3 project
 - typing_extensions==4.12.2
 - tzdata==2024.1
 - wcwidth==0.2.13
+
+ <br>
+</div>
+</details>
 
 ## team 3
 |손진우|김상아|서동인|이세준|
