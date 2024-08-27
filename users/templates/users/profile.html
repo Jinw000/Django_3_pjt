@@ -5,56 +5,83 @@
 <link rel="stylesheet" href="{% static 'css/profile.css' %}">
 {% endblock css %}
 {% block content %}
-<h1>프로필</h1>
+
 {% if request.user.is_authenticated %}
-
-    {% if member.image %}
-        <img src="{{ member.image.url }}">
-    {% endif %}	
-
-    <h2>{{ member.username }}님</h2>
-    <h5>가입일 : {{ request.user.date_joined|date:'m월 d일' }}</h5>
     
-    팔로워  {{ member.followers.count }}
-    팔로잉  {{ member.following.count }}
+<div class="col-lg-8 mx-auto p-4 py-md-5">
+    <header class="d-flex align-items-center pb-3 mb-5 border-bottom">
+        <a class="d-flex align-items-center text-body-emphasis text-decoration-none">
+        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+        <span class="fs-2">{{ member.username }}님의 프로필</span>
+        </a>
+    </header>
 
-    {%if member.username == request.user.username %}
-        <form action="{% url "accounts:update" %}" method="">
-            <input type="submit" value="회원정보수정">
-        </form>
-        <form action="{% url "accounts:delete_account" %}" method="POST">
-            {% csrf_token %}
-            <input type="submit" value="회원탈퇴"></input>
-        </form>
-    {% endif %}
+    <main>
+        {% if member.image %}
+            <img src="{{ member.image.url }}">
+        {% endif %}	
+        <h1 class="text-body-emphasis">{{ member.username }}님</h1>
+        <p class="fs-5 col-md-8">팔로워  {{ member.followers.count }} 팔로잉  {{ member.following.count }}</p>
 
-    {%if member.username != request.user.username %}
-        <form action="{% url 'users:follow' member.pk %}" method="POST">
-            {% csrf_token %}
-            {% if user in member.followers.all %}
-                <button type="submit">언팔로우</button>
-            {% else %}
-                <button type="submit">팔로우</button>
-            {% endif %}
-        </form>
-    {% endif %}
+    <div class="mb-5">
+        {% if member.username != request.user.username %}
+            <div class="btn-group" role="group">
+                <form action="{% url 'users:follow' member.pk %}" method="POST" style="display:inline;">
+                {% csrf_token %}
+                {% if user in member.followers.all %}
+                    <input type="submit" class="btn btn-warning" value="언팔로우">
+                {% else %}
+                    <input type="submit" class="btn btn-warning" value="팔로우">
+                {% endif %}
+                </form>
+            </div>
+        {% endif %}
+
+        {% if member.username == request.user.username %}
+            <div class="btn-group" role="group">
+                <form action="{% url 'accounts:update' %}" method="GET" style="display:inline;">
+                    <input type="submit" class="btn btn-warning" value="회원정보수정">
+                </form>
+                <form action="{% url 'accounts:delete_account' %}" method="POST" style="display:inline;" onsubmit="return confirmDelete();">
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-danger" value="회원탈퇴">
+                </form>
+            </div>
+        {% endif %}
+        <h5 style="margin-top: 10px;">가입일 : {{ request.user.date_joined|date:'m월 d일' }}</h5>
+        <hr class="col-3 col-md-2 mb-5">
+    </div>
+  
+      <div class="row g-5">
+        <div class="col-md-6">
+          <h2 class="text-body-emphasis">{{ member.username }} 님이 올린 물건</h2>
+          <ul class="list-unstyled ps-0">
+            {% for my_product in my_products %}
+                <li>
+                    <a href="{% url 'products:product_detail' my_product.pk %}"><p>{{ my_product.title }}</p></a>
+                </li>
+            {% endfor %}
+          </ul>
+        </div>
+  
+        <div class="col-md-6">
+          <h2 class="text-body-emphasis">{{ member.username }} 님이 찜한 물건</h2>
+          <ul class="list-unstyled ps-0">
+            {% for product in mark_products %}
+                <li>
+                    <a href="{% url 'products:product_detail' product.pk %}"><p>{{ product.title }}</p></a>
+                </li>
+                {% endfor %}
+
+          </ul>
+        </div>
+      </div>
+    </main>
+  </div>
+<script>
+    function confirmDelete() {
+        return confirm('정말 탈퇴하시겠습니까?');
+    }
+</script>
 {% endif %}
-
-
-
-
-<p>{{ member.username }} 님이 올린 물건</p>
-{% for my_product in my_products %}
-    <a href="{% url 'products:product_detail' my_product.pk %}">
-        <p>{{ my_product.title }}</p>
-    </a>
-{% endfor %}
-
-<p>{{ member.username }} 님이 찜한 물건</p>
-{% for product in mark_products %}
-    <a href="{% url 'products:product_detail' product.pk %}">
-        <p>{{ product.title }}</p>
-    </a>
-{% endfor %}
-
 {% endblock content %}

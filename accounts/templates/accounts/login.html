@@ -11,10 +11,10 @@
                     <form action="" method="POST" style="width: 300px;">
                         {% csrf_token %}
                         {{ form.as_p }}
-                        <input type="submit" class="w-100 btn btn-lg btn-primary mb-2" style="background-color: white; color: black; border: 1px solid #ccc;" value="로그인">
+                        <input type="submit" class="w-100 btn btn-lg btn-warning mb-2" value="로그인">
                     </form>
                     <form action="{% url 'home' %}" method="">
-                        <input type="submit" class="w-100 btn btn-lg btn-primary mb-2" style="background-color: white; color: black; border: 1px solid #ccc;" value="뒤로">
+                        <input type="submit" class="w-100 btn btn-lg mb-2" style="background-color:rgb(145, 145, 9);" value="뒤로">
                     </form>
                 </div>   
             </div>
