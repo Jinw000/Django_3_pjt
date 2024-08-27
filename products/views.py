@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Product
+from .models import Product, Hashtag
 from .forms import ProductForm
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST, require_http_methods
@@ -39,10 +39,12 @@ def product_detail(request, pk):
     product.update_counter()
     marks = product.mark_user.count()
     hits = product.hit
+    hashtags = product.hashtags.all()
     context = {
         'product': product,
         'marks': marks,
         'hits': hits,
+        'hashtags':hashtags,
     }
     return render(request, 'products/product_detail.html', context)
 
@@ -55,6 +57,10 @@ def create(request):
             product = form.save(commit=False)
             product.seller = request.user
             product.save()
+            for word in product.content.split():
+                if word.startswith('#'):
+                    hashtag, created = Hashtag.objects.get_or_create(tag=word)
+                    product.hashtags.add(hashtag.pk)
             return redirect('products:product_detail', product.pk)
     else:
         form = ProductForm()
@@ -79,6 +85,11 @@ def update(request, pk):
             form = ProductForm(request.POST, request.FILES, instance=product)
             if form.is_valid():
                 product = form.save()
+                product.hashtags.clear()
+                for word in product.content.split():
+                    if word.startswith('#'):
+                        hashtag, created = Hashtag.objects.get_or_create(tag=word)
+                        product.hashtags.add(hashtag.pk)
                 return redirect('products:product_detail', product.pk)
             else:
                 form = ProductForm(instance=product)
@@ -87,3 +98,4 @@ def update(request, pk):
         'product': product,
     }
     return render(request, 'products/update.html', context)
+

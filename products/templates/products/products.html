@@ -41,6 +41,9 @@
                 </a>
                 <p>찜수 : {{ product.mark_user.count }}</p>
                 <p>조회수: {{ product.hit }}</p>
+                {% for hashtag in product.hashtags.all %}
+                    {{ hashtag }}
+                    {% endfor %}
             </div>
         </div>
     </div>

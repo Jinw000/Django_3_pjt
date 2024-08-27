@@ -1,6 +1,11 @@
 from django.db import models
 from django.conf import settings
 
+class Hashtag(models.Model):
+    tag = models.TextField(unique=True)
+
+    def __str__(self):
+        return self.tag
 
 class Product(models.Model):
     seller = models.ForeignKey(
@@ -17,9 +22,12 @@ class Product(models.Model):
     mark_user = models.ManyToManyField(
         settings.AUTH_USER_MODEL, related_name="mark_product")
     hit = models.PositiveIntegerField(default=0)
+    hashtags = models.ManyToManyField(Hashtag, blank=True)
 
     def __str__(self):
         return self.title
+
+
 
     def update_counter(self):
         self.hit += 1

@@ -33,6 +33,10 @@
 {% endif %}
 
 <div class="card rounded-3 shadow-sm" style="width: 820px; height: 300px; text-align: left; margin-left: 240px; margin-top: 50px; font-size: 24px; overflow: auto; word-wrap: break-word;">내용: {{ product.content}}</div>
+{% for hashtag in hashtags %}
+{{ hashtag }}
+{% endfor %}
+<br>
 <div class="btn btn123">
     <form action="{% url 'products:mark' product.pk %}" method="POST">
     {% csrf_token %}

@@ -5,4 +5,4 @@ class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
         fields = '__all__'
-        exclude = ('seller', 'mark_user', 'hit')
+        exclude = ('seller', 'mark_user', 'hit', 'hashtags',)
