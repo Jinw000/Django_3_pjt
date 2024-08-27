@@ -6,3 +6,7 @@ class ProductForm(forms.ModelForm):
         model = Product
         fields = '__all__'
         exclude = ('seller', 'mark_user', 'hit')
+
+
+class ProductSearchForm(forms.Form):
+    search_word = forms.CharField(label='Search Word')
