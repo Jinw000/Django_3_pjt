@@ -9,22 +9,27 @@
 
 <form action="{% url 'products:search' %}" method="POST">
     {% csrf_token %}
-    {{ form.as_table }} <!-- form을 테이블 형식으로 표시, 여기서 form은 views에서 넘겨준 PostSearchForm 객체임-->
-    <input type="submit" value="Submit" class="btn btn-primary btn-sm">
+    {{ form.as_table }} <!-- form을 테이블 형식으로 표시, 여기서 form은 views에서 넘겨준 ProductSearchForm 객체임-->
+    <input type="submit" value="검색" class="btn btn-primary btn-sm">
 </form>
 
 <br/><br/>
 
+<div class="row row-cols-1 row-cols-md-4 g-4 mx-auto w-75 pb-5">
 {% if product_list %}
     {% for post in product_list %}
-        <h2><a href='{% url 'products:product_detail' post.pk %}'>{{ post.title }}</a></h2>
-        <img src="{{ post.image.url }}">
+    <div class="col">
+        <div class="card h-100" style="width: 300px; height: 500px; text-align: center;">
+        <h2><a href='{% url 'products:product_detail' post.pk %}'style="margin-top: 40px;">{{ post.title }}</a></h2>
+        <img src="{{ post.image.url }}"style="display: block; margin: 0 auto; margin-top: 40px;">
         <p>{{ post.content }}</p>
         <p>{{ post.created_at|date:"N d, Y" }}</p>
     {% endfor %}
 {% elif search_term %}
     <b><i>찾으시는 물건이 없습니다.({{ search_term }}) Not Found</i></b>
 {% endif %}
-
+</div>
+</div>
+</div>
 
 {% endblock content %}
