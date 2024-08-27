@@ -54,8 +54,11 @@
 <div>
     <p style="font-size: 24px;">찜 {{ marks }} 조회수 {{ hits }}</p>
 </div>
-<p>작성일시:{{ product.created_at }}</p>
-<p>수정일시:{{ product.updated_at }}</p>
+<p>{% if product.created_string == False %}
+                <td>{{ product.registered_date|date:'m월 d일' }}</td>
+            {% else %}
+                <td>{{ product.created_string }}</td>
+            {% endif %}</p>
 
 <div class="btn123">
     <div class="btn btn123 btn-warning">

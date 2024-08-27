@@ -50,6 +50,11 @@
                 </a>
                 <p>찜 {{ product.mark_user.count }}</p>
                 <p>조회수 {{ product.hit }}</p>
+                <p>{% if product.created_string == False %}
+                            <td>{{ product.registered_date|date:'m월 d일' }}</td>
+                        {% else %}
+                            <td>{{ product.created_string }}</td>
+                        {% endif %}</p>
                 {% for hashtag in product.hashtags.all %}
                     {{ hashtag }}
                     {% endfor %}

@@ -32,6 +32,11 @@
                     </a>
                     <p>찜 {{ post.mark_user.count }}</p>
                     <p>조회수 {{ post.hit }}</p>
+                    <p>{% if post.created_string == False %}
+                            <td>{{ post.registered_date|date:'m월 d일' }}</td>
+                        {% else %}
+                            <td>{{ post.created_string }}</td>
+                        {% endif %}</p>
                     {% for hashtag in post.hashtags.all %}
                         {{ hashtag }}
                         {% endfor %}
