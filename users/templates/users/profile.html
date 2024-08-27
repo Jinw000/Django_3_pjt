@@ -21,7 +21,7 @@
             <img src="{{ member.image.url }}">
         {% endif %}	
         <h1 class="text-body-emphasis">{{ member.username }}님</h1>
-        <p class="fs-5 col-md-8">팔로워  {{ member.followers.count }} 팔로잉  {{ member.following.count }}</p>
+        <p class="fs-5 col-md-8">팔로워  {{ member.followers.count }}<span style="margin-right: 20px;"></span>팔로잉  {{ member.following.count }}</p>
 
     <div class="mb-5">
         {% if member.username != request.user.username %}
@@ -42,7 +42,7 @@
                 <form action="{% url 'accounts:update' %}" method="GET" style="display:inline;">
                     <input type="submit" class="btn btn-warning" value="회원정보수정">
                 </form>
-                <form action="{% url 'accounts:delete_account' %}" method="POST" style="display:inline;" onsubmit="return confirmDelete();">
+                <form action="{% url 'accounts:delete_account' %}" method="POST" style="display:inline; margin-left: 15px;" onsubmit="return confirmDelete();">
                     {% csrf_token %}
                     <input type="submit" class="btn btn-danger" value="회원탈퇴">
                 </form>

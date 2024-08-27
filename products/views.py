@@ -112,7 +112,7 @@ class SearchFormView(FormView):
     def form_valid(self, form):
         searchWord = form.cleaned_data['search_word']
         product_list = Product.objects.filter(
-            Q(title__icontains=searchWord) | Q(content__icontains=searchWord)).distinct()
+            Q(title__icontains=searchWord) | Q(content__icontains=searchWord) | Q(seller__username__icontains=searchWord)).distinct()
 
         context = {
             'form': form,
