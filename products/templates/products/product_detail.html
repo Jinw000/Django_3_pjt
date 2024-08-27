@@ -63,7 +63,7 @@
     </div>
 
     <div class="btn btn123 btn-warning">
-    <form action="{% url 'products:delete' product.pk %}" method="POST">
+    <form action="{% url 'products:delete' product.pk %}" method="POST" style="display:inline;" onsubmit="return confirmDelete();">
     {% csrf_token %}
     <input type="submit" class="btn btn-warning" value="삭제">
     </form>
@@ -77,7 +77,11 @@
     </div>
 </div>
 </div>
-
+<script>
+    function confirmDelete() {
+        return confirm('삭제하시겠습니까?');
+    }
+</script>
 <br>
 
 {% endblock content %}
