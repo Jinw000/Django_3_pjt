@@ -18,10 +18,10 @@ team sparta team 3 project
 
 ## Requirements
 <details>
-<summary>미리보기</summary>
+<summary>열기</summary>
 <div markdown="1">
 
-!- asgiref==3.8.1
+- asgiref==3.8.1
 - asttokens==2.4.1
 - decorator==5.1.1
 - Django==4.2
