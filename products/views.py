@@ -1,17 +1,22 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from .forms import ProductForm, ProductSearchForm
 from .models import Product, Hashtag
-from .forms import ProductForm
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST, require_http_methods
+from django.views.generic.edit import FormView
+from django.db.models import Q,Count
+
 
 
 def products(request):
     products = Product.objects.all().order_by('pk')
     sort = request.GET.get('sort', '')
     if sort == 'mark':
-        products = Product.objects.all().order_by('-mark_user', '-created_at')
+        products = Product.objects.annotate(mark_user_count=Count('mark_user')).order_by('-mark_user_count', '-created_at')
     elif sort == 'recently':
         products = Product.objects.all().order_by('-created_at')
+    elif sort == 'hit':
+        products = Product.objects.all().order_by('-hit')
     else:
         products = Product.objects.all().order_by('pk')
 
@@ -44,7 +49,7 @@ def product_detail(request, pk):
         'product': product,
         'marks': marks,
         'hits': hits,
-        'hashtags':hashtags,
+        'hashtags': hashtags,
     }
     return render(request, 'products/product_detail.html', context)
 
@@ -88,7 +93,8 @@ def update(request, pk):
                 product.hashtags.clear()
                 for word in product.content.split():
                     if word.startswith('#'):
-                        hashtag, created = Hashtag.objects.get_or_create(tag=word)
+                        hashtag, created = Hashtag.objects.get_or_create(
+                            tag=word)
                         product.hashtags.add(hashtag.pk)
                 return redirect('products:product_detail', product.pk)
             else:
@@ -99,3 +105,20 @@ def update(request, pk):
     }
     return render(request, 'products/update.html', context)
 
+
+class SearchFormView(FormView):
+    template_name = 'products/search.html'
+    form_class = ProductSearchForm
+
+    def form_valid(self, form):
+        searchWord = form.cleaned_data['search_word']
+        product_list = Product.objects.filter(
+            Q(title__icontains=searchWord) | Q(content__icontains=searchWord) | Q(seller__username__icontains=searchWord)).distinct()
+
+        context = {
+            'form': form,
+            'search_term': searchWord,
+            'product_list': product_list
+        }
+
+        return render(self.request, self.template_name, context)

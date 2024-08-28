@@ -9,8 +9,6 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
-
-
 @require_http_methods(['GET', 'POST'])
 def signup(request):
     if request.method == 'POST':
@@ -32,6 +30,7 @@ def update(request):
         username = request.user.username
         if form.is_valid():
             form.save()
+            username = request.user.username
             return redirect("users:profile", username)
     else:
         form = CustomUserChangeForm(instance=request.user)

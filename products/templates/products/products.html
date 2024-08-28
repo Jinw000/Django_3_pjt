@@ -12,6 +12,14 @@
         <a class="new-content" href="{% url 'products:create' %}">
             <input type="submit" class="btn btn-warning" value="새로운 글작성">
         </a>
+
+        <form action="{% url 'products:search' %}" method="POST">
+            {% csrf_token %}
+            <input type="text" name="search_word" style="margin-top: 12px;" label="Search Word" maxlength="50">
+            {{ form.as_table }} <!-- form을 테이블 형식으로 표시, 여기서 form은 views에서 넘겨준 ProductSearchForm 객체임-->
+            <input type="submit" value="검색" class="btn btn-warning btn-sm">
+        </form>
+
     {% endif %}
 
     <form method="GET" action="{% url 'products:products' %}">
@@ -19,6 +27,7 @@
             <select name="sort" id="sort">
                 <option value="default" id="default">------</option>
                 <option value="recently" id="recently">최신순</option>
+                <option value="hit" id="hit">조회순</option>
                 <option value="mark" id="mark">인기순</option>
             </select>
             <button class="sort btn btn-warning" style="margin-top: 10px;"type="submit" value="">정렬</button>
@@ -28,19 +37,24 @@
 <div class="row row-cols-1 row-cols-md-4 g-4 mx-auto w-75 pb-5">
     {% for product in products %}
     <div class="col">
-        <div class="card h-100" style="width: 300px; height: 500px; text-align: center;">
+        <div class="card h-100" style="width: 300px; height: 500px; text-align: center;margin-top: 40px;">
             {% if product.image %}
                 <img src="{{ product.image.url }}" style="display: block; margin: 0 auto; margin-top: 40px;">
             {% endif %}
             <div class="card-body">
                 <a href="{% url 'products:product_detail' product.pk %}" style="text-decoration: none;">
-                    <p> 제목 : {{ product.title }}</p>
+                    <h3>{{ product.title }}</h3>
                 </a>
                 <a href="{% url 'users:profile' product.seller.username %}" style="text-decoration: none;">
-                    <p> 작성자 : {{ product.seller.username }}</p>
+                    <p>{{ product.seller.username }}</p>
                 </a>
-                <p>찜수 : {{ product.mark_user.count }}</p>
-                <p>조회수: {{ product.hit }}</p>
+                <p>찜 {{ product.mark_user.count }}</p>
+                <p>조회수 {{ product.hit }}</p>
+                <p>{% if product.created_string == False %}
+                            <td>{{ product.registered_date|date:'m월 d일' }}</td>
+                        {% else %}
+                            <td>{{ product.created_string }}</td>
+                        {% endif %}</p>
                 {% for hashtag in product.hashtags.all %}
                     {{ hashtag }}
                     {% endfor %}
