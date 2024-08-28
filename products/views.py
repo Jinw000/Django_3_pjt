@@ -4,14 +4,15 @@ from .models import Product, Hashtag
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST, require_http_methods
 from django.views.generic.edit import FormView
-from django.db.models import Q
+from django.db.models import Q,Count
+
 
 
 def products(request):
     products = Product.objects.all().order_by('pk')
     sort = request.GET.get('sort', '')
     if sort == 'mark':
-        products = Product.objects.all().order_by('-mark_user', '-created_at')
+        products = Product.objects.annotate(mark_user_count=Count('mark_user')).order_by('-mark_user_count', '-created_at')
     elif sort == 'recently':
         products = Product.objects.all().order_by('-created_at')
     elif sort == 'hit':
