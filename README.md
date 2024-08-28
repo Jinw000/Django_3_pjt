@@ -63,26 +63,26 @@ team sparta team 3 project
 ### 회원 기능
  - 기본적인 회원 기능
   - 로그인, 로그아웃, 회원가입
- - 프로필 사진
+
 
 ### 유저 기능
  - 유저별 프로필 페이지를 구현
+ - 프로필 사진
   - 팔로우
 
 ### 게시 기능
  - 물건 목록
-  - 물건 정렬
+ - 물건 정렬
  - 디테일 페이지
-  - 조회하기 / 등록하기 / 수정하기 / 삭제하기
-  - 찜하기
-
-### 해시 태그
-
-### 검색 기능
-
+ - 조회하기 / 등록하기 / 수정하기 / 삭제하기
+ - 찜하기
+ - 물건별 해시태그 등록
+ - 검색 기능
 
 ## ERD
+![image](https://github.com/user-attachments/assets/10750653-dd9d-4595-81bb-139564ba9d20)
 
+<br>
 <div align=center><h1>📚 STACKS</h1></div>  <div align=center><img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white">  <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white">  <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white">  <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">  <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">   <br>   <img src="https://img.shields.io/badge/django-092E20?style=for-the-badge&logo=django&logoColor=white">   <img src="https://img.shields.io/badge/bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white">  <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">  <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">    </div>
 
 ◻ Copyright ©2024 django team 3 all rights reserved.
